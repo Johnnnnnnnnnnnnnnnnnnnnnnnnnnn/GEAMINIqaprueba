@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Creative Agency</title>
+    <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-custom-green: #00e0d0;
+            --color-custom-black: #413d4b;
+            --color-custom-gray: #b5b5b6;
+            --color-custom-purple-border: #9a93ad;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400; /* Regular */
+            color: var(--color-custom-black);
+        }
+
+        .font-roboto-light { font-family: 'Roboto', sans-serif; font-weight: 300; }
+        .font-roboto-regular { font-family: 'Roboto', sans-serif; font-weight: 400; }
+        .font-roboto-black { font-family: 'Roboto', sans-serif; font-weight: 900; }
+        .font-playfair-regular { font-family: 'Playfair Display', serif; font-weight: 400; }
+        .font-playfair-black { font-family: 'Playfair Display', serif; font-weight: 900; }
+
+        .hero-bg {
+            background-image: url('src/imgs/header.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .video-bg {
+            background-image: url('src/imgs/video.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Footer background is now a solid color as per refined requirement */
+        .footer-bg {
+            background-image: url('src/imgs/footer.jpg'); /* Make sure this path is correct! */
+            background-size: cover;
+            background-position: center;
+            position: relative; /* Needed for the overlay */
+        }
+
+        .footer-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+           /* background-color: var(--color-custom-black); /* Your dark theme color #413d4b */
+            opacity: 0.75; /* ADJUST THIS VALUE: 0 (transparent) to 1 (opaque). Try 0.5 or 0.8 if 0.75 is not right. */
+            z-index: 0; /* Overlay is behind the content */
+        }
+
+        /* This ensures the direct .container child of .footer-bg is above the ::before pseudo-element overlay */
+        .footer-bg > .container {
+            position: relative;
+            z-index: 1;
+        }
+        /* If you want to use footer.jpg with an overlay, you can use this: */
+        /*
+        .footer-bg {
+            background-image: url('src/imgs/footer.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .footer-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--color-custom-black); // Or a darker purple
+            opacity: 0.85; // Adjust as needed
+            z-index: 0;
+        }
+        .footer-bg > .container { // Ensure content is above overlay
+            position: relative;
+            z-index: 1;
+        }
+        */
+
+        .footer-logo-img {
+            height: 50px; /* Adjust as needed */
+        }
+
+        .custom-icon {
+            display: inline-block;
+            width: 56px;
+            height: 56px;
+            background-image: url('src/imgs/icons.png');
+            background-repeat: no-repeat;
+        }
+        .icon-monitor { background-position: 0 0; }
+        .icon-pencil { background-position: -70px 0; }
+        .icon-phone { background-position: -126px 0; }
+        .icon-graph { background-position: 0 -60px; }
+        .icon-game { background-position: -56px -60px; }
+        .icon-heart { background-position: -124px -60px; }
+
+        .play-icon-img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .text-custom-green { color: var(--color-custom-green); }
+        .border-custom-green { border-color: var(--color-custom-green); }
+        .text-custom-black { color: var(--color-custom-black); }
+        .text-custom-gray { color: var(--color-custom-gray); }
+        .border-custom-purple { border-color: var(--color-custom-purple-border); }
+        .bg-custom-purple-input-btn { background-color: var(--color-custom-purple-border); } /* For button */
+
+
+        /* Specific color applications based on new palette */
+        .nav-link {
+            /* font-roboto-black is applied in HTML */
+            /* Color will be white in hero, custom-black otherwise if needed */
+        }
+        .hero-button {
+            /* font-roboto-black applied in HTML */
+            border-color: var(--color-custom-green);
+            color: white; /* Text color for hero button */
+        }
+        .hero-button:hover {
+            background-color: var(--color-custom-green);
+            color: var(--color-custom-black);
+        }
+
+        .section-title {
+            /* font-playfair-black applied in HTML */
+            color: var(--color-custom-black);
+        }
+        .section-subtitle {
+            /* font-playfair-regular applied in HTML for Expertise subtitle */
+            color: var(--color-custom-black); /* Or custom-gray if preferred */
+        }
+        .paragraph-light {
+            /* font-roboto-light applied in HTML */
+            color: var(--color-custom-black); /* Main paragraph text */
+            line-height: 1.7;
+        }
+        .paragraph-alt-light { /* For lighter paragraphs like in footer */
+             /* font-roboto-light applied in HTML */
+            color: var(--color-custom-gray);
+            line-height: 1.7;
+        }
+
+
+        .button-primary {
+            /* font-roboto-black applied in HTML */
+            border-color: var(--color-custom-black); /* Example, adjust as per design for non-hero buttons */
+            color: var(--color-custom-black);
+        }
+        .button-primary:hover {
+            background-color: var(--color-custom-black);
+            color: white;
+        }
+        .expertise-item-title {
+            /* font-roboto-black applied in HTML */
+            color: var(--color-custom-black);
+        }
+        .footer-text {
+            color: var(--color-custom-gray); /* Default text in footer */
+        }
+        .footer-heading {
+            /* font-roboto-black applied in HTML */
+            color: white;
+        }
+        .footer-link {
+             /* font-roboto-regular applied in HTML */
+            color: var(--color-custom-gray);
+        }
+        .footer-link:hover {
+            color: white;
+        }
+        .newsletter-input {
+            border-color: var(--color-custom-purple-border);
+            background-color: rgba(255, 255, 255, 0.1); /* Light background for input on dark footer */
+        }
+        .newsletter-button {
+            background-color: var(--color-custom-purple-border);
+        }
+
+    </style>
+</head>
+<body class="bg-white">
+
+    <section id="hero" class="hero-bg text-white py-10 md:py-12 relative">
+        <div class="absolute inset-0 bg-black opacity-40"></div> <div class="container mx-auto px-4 relative z-10">
+            <nav class="flex justify-center items-center mb-16 md:mb-24 py-4">
+                <div class="hidden md:flex space-x-8 items-center font-roboto-black uppercase text-sm tracking-wider">
+                    <a href="#" class="nav-link hover:text-custom-green transition-colors">HOME</a>
+                    <a href="#" class="nav-link hover:text-custom-green transition-colors">ABOUT</a>
+                    <a href="#expertise" class="nav-link hover:text-custom-green transition-colors">EXPERTISE</a>
+                    <a href="#" class="nav-link hover:text-custom-green transition-colors">TEAMS</a>
+                    <a href="#" class="nav-link hover:text-custom-green transition-colors">WORKS</a>
+                    <a href="#" class="nav-link hover:text-custom-green transition-colors">PEOPLE SAY</a>
+                    <a href="#contact" class="nav-link hover:text-custom-green transition-colors">CONTACT</a>
+                </div>
+                <div class="md:hidden"> <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </nav>
+            <div id="mobile-menu" class="hidden md:hidden bg-custom-black bg-opacity-95 absolute top-16 right-4 left-4 z-50 rounded-md shadow-lg font-roboto-black uppercase text-sm">
+                <a href="#" class="block text-center py-3 hover:bg-custom-green hover:text-custom-black transition-colors">HOME</a>
+                <a href="#" class="block text-center py-3 hover:bg-custom-green hover:text-custom-black transition-colors">ABOUT</a>
+                <a href="#expertise" class="block text-center py-3 hover:bg-custom-green hover:text-custom-black transition-colors">EXPERTISE</a>
+                <a href="#" class="block text-center py-3 hover:bg-custom-green hover:text-custom-black transition-colors">TEAMS</a>
+                <a href="#" class="block text-center py-3 hover:bg-custom-green hover:text-custom-black transition-colors">WORKS</a>
+                <a href="#" class="block text-center py-3 hover:bg-custom-green hover:text-custom-black transition-colors">PEOPLE SAY</a>
+                <a href="#contact" class="block text-center py-3 hover:bg-custom-green hover:text-custom-black transition-colors">CONTACT</a>
+            </div>
+
+            <div class="text-center max-w-3xl mx-auto pt-10 md:pt-16 pb-10 md:pb-20">
+                <h1 class="font-playfair-black text-4xl md:text-6xl mb-6">We Are Awesome Creative Agency</h1>
+                <p class="font-roboto-light text-lg md:text-xl mb-10 leading-relaxed max-w-2xl mx-auto">
+                    This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit.
+                </p>
+                <a href="#" class="font-roboto-black hero-button border-2 py-3 px-10 rounded uppercase text-lg tracking-wider transition duration-300">
+                    LEARN MORE
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="our-story" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/3 mb-10 md:mb-0 md:mr-12 flex justify-center">
+                <img src="src/imgs/logo.png" alt="Our Story Visual" class="w-48 h-48 md:w-56 md:h-56 object-contain">
+            </div>
+            <div class="md:w-2/3 text-center md:text-left">
+                <h2 class="font-playfair-black section-title text-3xl md:text-4xl mb-6">OUR STORY</h2>
+                <p class="font-roboto-light paragraph-light mb-4">
+                    This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus.
+                </p>
+                <p class="font-roboto-light paragraph-light mb-8">
+                    Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                </p>
+                <a href="#" class="font-roboto-black button-primary border-2 py-3 px-8 rounded uppercase text-lg tracking-wider transition duration-300 hover:bg-custom-black hover:text-white border-custom-black">
+                    LEARN MORE
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="video-story" class="video-bg py-24 md:py-40 text-white relative">
+        <div class="absolute inset-0"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <button class="mx-auto mb-6 focus:outline-none">
+                <img src="src/imgs/play-icon.png" alt="Play Video" class="play-icon-img hover:opacity-80 transition duration-300">
+            </button>
+            <h3 class="font-roboto-black text-2xl md:text-3xl uppercase tracking-wider">WATCH OUR STORY</h3>
+        </div>
+    </section>
+
+    <section id="expertise" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-playfair-black section-title text-3xl md:text-4xl mb-4">EXPERTISE</h2>
+            <p class="font-playfair-regular section-subtitle text-xl text-custom-black mb-12 md:mb-16 max-w-xl mx-auto">Lorem ipsum dolor sit amet proin gravida nibh vel velit</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex justify-center mb-5">
+                        <div class="custom-icon icon-monitor"></div>
+                    </div>
+                    <h4 class="font-roboto-black expertise-item-title text-lg mb-2 uppercase tracking-wide">WEB DESIGN & DEVELOPMENT</h4>
+                    <p class="font-roboto-light text-custom-gray text-sm leading-relaxed">This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet Aenean.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex justify-center mb-5">
+                        <div class="custom-icon icon-pencil"></div>
+                    </div>
+                    <h4 class="font-roboto-black expertise-item-title text-lg mb-2 uppercase tracking-wide">BRANDING IDENTITY</h4>
+                    <p class="font-roboto-light text-custom-gray text-sm leading-relaxed">This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet Aenean.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex justify-center mb-5">
+                        <div class="custom-icon icon-phone"></div>
+                    </div>
+                    <h4 class="font-roboto-black expertise-item-title text-lg mb-2 uppercase tracking-wide">MOBILE APP</h4>
+                    <p class="font-roboto-light text-custom-gray text-sm leading-relaxed">This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet Aenean.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex justify-center mb-5">
+                        <div class="custom-icon icon-graph"></div>
+                    </div>
+                    <h4 class="font-roboto-black expertise-item-title text-lg mb-2 uppercase tracking-wide">SEARCH ENGINE OPTIMIZATION</h4>
+                    <p class="font-roboto-light text-custom-gray text-sm leading-relaxed">This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet Aenean.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex justify-center mb-5">
+                         <div class="custom-icon icon-game"></div>
+                    </div>
+                    <h4 class="font-roboto-black expertise-item-title text-lg mb-2 uppercase tracking-wide">GAME DEVELOPMENT</h4>
+                    <p class="font-roboto-light text-custom-gray text-sm leading-relaxed">This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet Aenean.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex justify-center mb-5">
+                        <div class="custom-icon icon-heart"></div>
+                    </div>
+                    <h4 class="font-roboto-black expertise-item-title text-lg mb-2 uppercase tracking-wide">MADE WITH LOVE</h4>
+                    <p class="font-roboto-light text-custom-gray text-sm leading-relaxed">This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet Aenean.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer-bg py-16 md:py-20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <div>
+                    <img src="src/imgs/logo-small.png" alt="Tajam Logo Small" class="footer-logo-img mb-6">
+                    <p class="font-roboto-light paragraph-alt-light text-sm">
+                        lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh elit. Duis sed odio sit amet auctror a ornare odio non mauris vitae erat in elit.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-roboto-black footer-heading text-lg mb-6 uppercase tracking-wider">OUR STUDIO</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start font-roboto-light footer-text">
+                            <svg class="w-5 h-5 text-custom-green mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                            Ruko cucruk, Jl. Radio luar dalem jos No.12 - 13, Kalideres - Jakarta Barat
+                            11480 – Indonesia
+                        </li>
+                        <li class="flex items-center font-roboto-light footer-text">
+                            <svg class="w-5 h-5 text-custom-green mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                            (+62) 21-2224 3333
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-roboto-black footer-heading text-lg mb-6 uppercase tracking-wider">STAY IN TOUCH</h5>
+                    <form action="#" class="flex mb-6">
+                        <input type="email" placeholder="Subscribe our newsletter" class="font-roboto-regular newsletter-input flex-grow p-3 rounded-l text-sm placeholder-gray-400 text-white focus:outline-none focus:border-custom-green transition-colors">
+                        <button type="submit" class="newsletter-button text-white py-3 px-5 rounded-r flex items-center justify-center focus:outline-none hover:bg-opacity-80 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 16.571V11.69l4.768-1.652a1 1 0 00.673-1.626L10.894 2.553zM2 18a1 1 0 01.553-.894l5.316-1.975L6.447 18H2z"></path></svg>
+                        </button>
+                    </form>
+                    <div class="flex space-x-3">
+                      <a href="#" class="w-8 h-8 rounded-full border border-white hover:bg-custom-green flex items-center justify-center text-white transition-colors duration-300">
+                          <img src="src/svg/facebook.svg" alt="Facebook" class="w-5 h-5 fill-current text-white">
+                      </a>
+                  
+                      <a href="#" class="w-8 h-8 rounded-full border border-white hover:bg-custom-green flex items-center justify-center text-white transition-colors duration-300">
+                           <img src="src/svg/twitter.svg" alt="Twitter" class="w-5 h-5 fill-current text-white">
+                      </a>
+                  
+                       <a href="#" class="w-8 h-8 rounded-full border border-white hover:bg-custom-green flex items-center justify-center text-white transition-colors duration-300">
+                           <img src="src/svg/dribble.svg" alt="Dribbble" class="w-5 h-5 fill-current text-white">
+                      </a>
+                  
+                       <a href="#" class="w-8 h-8 rounded-full border border-white hover:bg-custom-green flex items-center justify-center text-white transition-colors duration-300">
+                           <img src="src/svg/instagram.svg" alt="Instagram" class="w-5 h-5 fill-current text-white">
+                      </a>
+                  
+                       <a href="#" class="w-8 h-8 rounded-full border border-white hover:bg-custom-green flex items-center justify-center text-white transition-colors duration-300">
+                           <img src="src/svg/google-plus-logo.svg" alt="Google Plus" class="w-5 h-5 fill-current text-white">
+                      </a>
+                  
+                       <a href="#" class="w-8 h-8 rounded-full border border-white hover:bg-custom-green flex items-center justify-center text-white transition-colors duration-300">
+                           <img src="src/svg/youtube.svg" alt="YouTube" class="w-5 h-5 fill-current text-white">
+                      </a>
+                  </div>
+                </div>
+                 <div class="hidden lg:block">
+                 </div>
+            </div>
+            <hr class="border-gray-700 my-8"> <div class="flex flex-col md:flex-row justify-between items-center text-sm footer-text">
+                <div class="space-x-6 mb-4 md:mb-0 font-roboto-regular">
+                    <a href="#" class="footer-link uppercase">HELP</a>
+                    <a href="#" class="footer-link uppercase">TERMS & CONDITION</a>
+                    <a href="#" class="footer-link uppercase">PRIVACY</a>
+                </div>
+                <p class="font-roboto-regular">&copy; 2025 Tajam Creative Agency. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+
+</body>
+</html>
